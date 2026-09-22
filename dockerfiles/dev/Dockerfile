@@ -8,8 +8,11 @@ WORKDIR /usr/src/core
 COPY ./requirements.txt .
 
 
-RUN pip3 install -i https://mirror-pypi.runflare.com/simple --upgrade pip && \
-    pip3 install  -i https://mirror-pypi.runflare.com/simple -r requirements.txt 
+# RUN pip3 install -i https://mirror-pypi.runflare.com/simple --upgrade pip && \
+#     pip3 install  -i https://mirror-pypi.runflare.com/simple -r requirements.txt 
+
+RUN pip3 install -i https://mirror2.chabokan.net/pypi/simple/ --upgrade pip && \
+    pip3 install  -i https://mirror2.chabokan.net/pypi/simple/ -r requirements.txt 
 
 
 COPY ./core .
