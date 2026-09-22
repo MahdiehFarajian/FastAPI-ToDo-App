@@ -1,0 +1,44 @@
+services:
+  db:
+    image: docker.arvancloud.ir/postgres:15-alpine
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    ports:
+      - "5432:5432"
+
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/dev/Dockerfile
+    container_name: backend
+    depends_on:
+      - db
+    environment:
+      SQLALCHEMY_DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
+      JWT_SECRET_KEY: z_f%#7x&0!n6uuamyca%y5swv1(9e=u=wu9s#wy(3f-k__k777
+
+      S3_BUCKET: aroushop
+      AWS_ACCESS_KEY_ID: 9ip90d2bb09uoskr   
+      AWS_SECRET_ACCESS_KEY: 80c5535d-421d-4143-95d9-82c10b9f1e17    
+      S3_REGION: default
+      S3_ENDPOINT: https://storage.c2.liara.space
+
+    ports:
+      - "8000:8000"
+    command: bash -c 'fastapi dev --host 0.0.0.0 --port 8000'
+    volumes:
+      - ./core:/usr/src/core
+
+
