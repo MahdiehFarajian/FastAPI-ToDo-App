@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Boolean, DateTime, text, func
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import validates
+from sqlalchemy.orm import validates, relationship
 from core.database import Base
 from passlib.context import CryptContext
 from uuid6 import uuid7
@@ -28,6 +28,9 @@ class UserModel(Base):
     is_profile_complete = Column(Boolean, server_default=text("false"))
     created_date = Column(DateTime(timezone=True), server_default=func.now())
     updated_date = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    profile = relationship("ProfileModel", back_populates="user", uselist=False)
+
 
 
     def hash_password(self, plain_password: str) -> str:

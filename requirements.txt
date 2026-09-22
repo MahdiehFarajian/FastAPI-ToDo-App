@@ -4,3 +4,4 @@ alembic
 psycopg2-binary
 passlib
 uuid6
+PyJWT==2.10.1
