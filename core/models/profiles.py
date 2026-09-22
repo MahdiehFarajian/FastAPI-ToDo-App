@@ -17,3 +17,7 @@ class ProfileModel(Base):
     updated_date = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     user = relationship("UserModel", back_populates="profile", passive_deletes=True)
+
+    @property
+    def email(self):
+        return self.user.email if self.user else None

@@ -101,16 +101,16 @@ def get_authenticated_user(
         user_obj = db.query(UserModel).filter_by(id=user_id).one()
         return user_obj
 
-    except InvalidSignatureError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authentication failed, invalid signature",
-        )
-    except DecodeError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authentication failed, decode failed",
-        )
+    # except InvalidSignatureError:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_401_UNAUTHORIZED,
+    #         detail="Authentication failed, invalid signature",
+    #     )
+    # except DecodeError:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_401_UNAUTHORIZED,
+    #         detail="Authentication failed, decode failed",
+    #     )
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
