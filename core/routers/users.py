@@ -73,7 +73,7 @@ async def user_refresh_token(request: Request, response: JSONResponse, db: Sessi
         response = JSONResponse(
             content={"detail": Messages.token_refreshed}, status_code=status.HTTP_200_OK
         )
-        response.set_cookie("refresh_token", new_access_token,
+        response.set_cookie("acces_token", new_access_token,
                                 httponly=True, secure=True, samesite="None")
         return response
 
