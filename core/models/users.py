@@ -30,7 +30,7 @@ class UserModel(Base):
     updated_date = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     profile = relationship("ProfileModel", back_populates="user", uselist=False)
-
+    tasks = relationship("TaskModel", back_populates="user", cascade="all, delete-orphan")
 
 
     def hash_password(self, plain_password: str) -> str:
