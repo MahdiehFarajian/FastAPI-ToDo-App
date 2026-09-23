@@ -8,7 +8,7 @@ import models.listeners
 from messages.profiles import Messages
 from schemas.profiles import ProfileResponseSchema, ProfileUpdateSchema
 
-router = APIRouter(tags=["Profile"], prefix="/api/v1")
+router = APIRouter(tags=["profile"], prefix="/api/v1")
 
 
 @router.get("/profile", response_model=ProfileResponseSchema, status_code=status.HTTP_200_OK)
